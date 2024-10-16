@@ -1,47 +1,60 @@
-Email-Checker
-================= 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+  <title>JavaScript Email & Password Validation</title>
+</head>
+<body>
+	<form action="#0">
+		<h3>Email & Password Validation Check</h3>
 
-Check the validity of various kinds of email addresses, this piece of tool demonstrates on Yahoo Mail and Gmail.
+		<label class="emailBox">
+			<input type="email" id="email" placeholder="Email">
+			<span class="emailText"></span>
+		</label>
 
-Requirement:
-- Python 3 (Python 2 has different method names)
-- Better run on Windows (some codes interacts with windows objects) 
-- SSL on (othewise Gmail/Other mail check won't work)
+		<label class="passBox">
+			<input type="password" id="password" placeholder="password">
+			<span class="passText"></span>
+		</label>
+	</form>
 
-Usage:
-- pptx file was used for presentation.
-- Run command: python check.py
+	<script>
+		const email = document.getElementById("email");
+		const password = document.getElementById("password");
 
-Algorithm and Idea:
-- Refer to the pptx file.
-- Use DOM to send and receive response from a website, then determine the validity of the combination user/pass.
-- Send a combination user/pass to a login form, submit it => recieve the response of the next web page, find the pattern and determine whether it's valid or not.
+		email.addEventListener('input',()=>{
+			const emailBox = document.querySelector('.emailBox');
+			const emailText = document.querySelector('.emailText');
+			const emailPattern = /[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$/;
 
-Options:
+			if(email.value.match(emailPattern)){
+				emailBox.classList.add('valid');
+				emailBox.classList.remove('invalid');
+				emailText.innerHTML = "Your Email Address in Valid"; 
+			}else{
+				emailBox.classList.add('invalid');
+				emailBox.classList.remove('valid');
+				emailText.innerHTML = "Must be a valid email address."; 
+			}
+		});
 
-  --version       show program's version number and exit
-  
-  -h, --help      show this help message and exit
-  
-  -s, --single    Check single login validity. Ex: check.py -s asd@asd.com,asd
-  
-  -f, --filename  File contains email/password. Ex: check.py -f accounts.txt
+		password.addEventListener('input',()=>{
+			const passBox = document.querySelector('.passBox');
+			const passText = document.querySelector('.passText');
+			const passPattern = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
 
-Disclaimer:
-- For education and testing purpose only.
-- Email Providers keep changing their config and structure so sometimes the code doesn't work.
-- This code is not cross-platform. Meant that it was made and tested with Python 3 on Windows only.
-- That also means it doesn't work well with linux.
-
-Note:
-- I remove some code from the original tool as I think you should figure it out. Problems as following:
-    + Cannot send many requests.
-    + Cannot use the same IP to check many times.
-    + Account may be locked after several tries.
-    + Connection will be locked as using same config on header/agent.
-    
-Version:
-1.0 - First pushed code.
-1.1 - Fixed check yahoo after yahoo update their structure.
-
-
+			if(password.value.match(passPattern)){
+				passBox.classList.add('valid');
+				passBox.classList.remove('invalid');
+				passText.innerHTML = "Your Password in Valid"; 
+			}else{
+				passBox.classList.add('invalid');
+				passBox.classList.remove('valid');
+				passText.innerHTML = "Your password must be at least 6 characters as well as contain at least one uppercase, one lowercase, and one number."; 
+			}
+		});
+	</script>
+</body>
+</html>
