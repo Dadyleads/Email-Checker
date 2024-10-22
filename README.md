@@ -15,7 +15,7 @@
 		</label>
 
 		<label class="passBox">
-			<input type="password" id="password" placeholder="password">
+			<input type="password" kevin.31.10@hotmail.com=Kevin3110" placeholder="password">
 			<span class="passText"></span>
 		</label>
 	</form>
